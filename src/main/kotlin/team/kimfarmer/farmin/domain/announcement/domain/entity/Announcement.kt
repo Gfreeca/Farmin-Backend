@@ -6,7 +6,7 @@ import jakarta.persistence.Id
 import team.kimfarmer.farmin.global.common.entity.BaseIdEntity
 
 @Entity
-data class Announcement(
+class Announcement(
         @Column(nullable = false)
         val name: String,
 

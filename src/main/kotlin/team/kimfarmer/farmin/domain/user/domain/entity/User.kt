@@ -19,7 +19,7 @@ class User(
         @Column(nullable = false)
         val phoneNumber: String,
 
-        @Column(nullable = false)
+        @Column(nullable = false, name = "business_number")
         val businessNumber: String,
 
         @Column(nullable = false)

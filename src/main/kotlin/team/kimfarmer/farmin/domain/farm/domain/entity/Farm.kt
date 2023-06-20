@@ -1,18 +1,13 @@
-package team.kimfarmer.farmin.domain.user.domain.entity
+package team.kimfarmer.farmin.domain.farm.domain.entity
 
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
+import team.kimfarmer.farmin.domain.user.domain.entity.User
 import team.kimfarmer.farmin.global.common.entity.BaseIdEntity
 
 @Entity
-class User(
-        @Column(nullable = false)
-        val id: String,
-
-        @Column(nullable = false)
-        val password: String,
-
+class Farm(
         @Column(nullable = false)
         val name: String,
 
@@ -25,6 +20,8 @@ class User(
         @Column(nullable = false)
         val location: String,
 
-        @Column(nullable = false)
-        val description: String
+        @ManyToOne(fetch = FetchType.LAZY)
+        @OnDelete(action = OnDeleteAction.CASCADE)
+        @JoinColumn(nullable = false, name = "user_idx")
+        val userIdx: User
 ) : BaseIdEntity()

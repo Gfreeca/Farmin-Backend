@@ -9,5 +9,5 @@ import jakarta.persistence.MappedSuperclass
 abstract class BaseIdEntity(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long = 0
+        var idx: Long = 0
 )

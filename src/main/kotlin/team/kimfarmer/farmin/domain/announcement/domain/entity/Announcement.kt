@@ -3,12 +3,10 @@ package team.kimfarmer.farmin.domain.announcement.domain.entity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import team.kimfarmer.farmin.global.common.entity.BaseIdEntity
 
 @Entity
 data class Announcement(
-        @Id
-        val idx: Long,
-
         @Column(nullable = false)
         val name: String,
 
@@ -29,4 +27,4 @@ data class Announcement(
 
         @Column(nullable = false)
         val userIdx: Long
-)
+) : BaseIdEntity()

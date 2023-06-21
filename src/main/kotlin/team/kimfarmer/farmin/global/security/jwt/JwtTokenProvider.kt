@@ -9,6 +9,7 @@ import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
@@ -35,11 +36,11 @@ class JwtTokenProvider(
     val refreshExpiredTime: ZonedDateTime
         get() = ZonedDateTime.now().plusSeconds(tokenTimeProperties.refreshTime)
 
-    fun generateAccessToken(email: String, role: Role): String =
-        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, tokenTimeProperties.accessTime, role)
+    fun generateAccessToken(email: String): String =
+        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, tokenTimeProperties.accessTime)
 
-    fun generateRefreshToken(email: String, role: Role): String =
-        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, tokenTimeProperties.refreshTime, role)
+    fun generateRefreshToken(email: String): String =
+        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, tokenTimeProperties.refreshTime)
 
     fun resolveToken(req: HttpServletRequest): String? {
         val token = req.getHeader("Authorization") ?: return null
@@ -48,15 +49,6 @@ class JwtTokenProvider(
 
     fun exactEmailFromRefreshToken(refresh: String): String {
         return getTokenSubject(refresh, jwtProperties.refreshSecret)
-    }
-
-    fun exactRoleFromRefreshToken(refresh: String): Role {
-        return when (getTokenBody(refresh, jwtProperties.refreshSecret).get(AUTHORITY, String::class.java)) {
-            "ROLE_STUDENT" -> Role.ROLE_STUDENT
-            "ROLE_ADMIN" -> Role.ROLE_ADMIN
-            else -> throw RoleNotExistException()
-        }
-
     }
 
     fun exactTypeFromRefreshToken(refresh: String): String =
@@ -70,10 +62,9 @@ class JwtTokenProvider(
     fun parseToken(token: String): String? =
         if (token.startsWith(TOKEN_PREFIX)) token.replace(TOKEN_PREFIX, "") else null
 
-    fun generateToken(email: String, type: String, secret: Key, exp: Long, role: Role): String {
+    fun generateToken(email: String, type: String, secret: Key, exp: Long): String {
         val claims = Jwts.claims().setSubject(email)
         claims["type"] = type
-        claims[AUTHORITY] = role
         return Jwts.builder()
             .setHeaderParam("typ", "JWT")
             .signWith(secret, SignatureAlgorithm.HS256)

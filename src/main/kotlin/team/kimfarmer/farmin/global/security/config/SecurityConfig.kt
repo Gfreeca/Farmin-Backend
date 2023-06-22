@@ -1,4 +1,4 @@
-package team.kimfarmer.farmin.global.security
+package team.kimfarmer.farmin.global.security.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.FilterConfig
@@ -8,8 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.util.matcher.RequestMatcher
-import org.springframework.web.cors.CorsUtils
+import team.kimfarmer.farmin.global.security.CustomAuthenticationEntryPoint
 import team.kimfarmer.farmin.global.security.jwt.JwtTokenProvider
 
 
@@ -21,7 +20,7 @@ class SecurityConfig(
 ) {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        return http
+         http
                 .cors{it.disable()}
                 .csrf{it.disable()}
                 .formLogin{it.disable()}
@@ -31,7 +30,12 @@ class SecurityConfig(
                 .authorizeHttpRequests{
                     it.anyRequest().permitAll()
                 }
-                .build()
+                .exceptionHandling{
+                    it.authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))
+                }
+        http
+                .apply(FilterConfig(jwtTokenProvider, objectMapper))
+        return http.build()
     }
 
 }

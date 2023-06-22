@@ -62,8 +62,8 @@ class JwtTokenProvider(
     fun parseToken(token: String): String? =
         if (token.startsWith(TOKEN_PREFIX)) token.replace(TOKEN_PREFIX, "") else null
 
-    fun generateToken(email: String, type: String, secret: Key, exp: Long): String {
-        val claims = Jwts.claims().setSubject(email)
+    fun generateToken(id: String, type: String, secret: Key, exp: Long): String {
+        val claims = Jwts.claims().setSubject(id)
         claims["type"] = type
         return Jwts.builder()
             .setHeaderParam("typ", "JWT")

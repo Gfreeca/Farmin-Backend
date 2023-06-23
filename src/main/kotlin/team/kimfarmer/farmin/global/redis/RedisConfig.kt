@@ -1,4 +1,4 @@
-package com.msg.gcms.global.redis
+package team.kimfarmer.farmin.global.redis
 
 import team.kimfarmer.farmin.global.redis.properties.RedisProperties
 import org.springframework.context.annotation.Bean

@@ -36,11 +36,11 @@ class JwtTokenProvider(
     val refreshExpiredTime: ZonedDateTime
         get() = ZonedDateTime.now().plusSeconds(tokenTimeProperties.refreshTime)
 
-    fun generateAccessToken(email: String): String =
-        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, tokenTimeProperties.accessTime)
+    fun generateAccessToken(id: String): String =
+        generateToken(id, ACCESS_TYPE, jwtProperties.accessSecret, tokenTimeProperties.accessTime)
 
-    fun generateRefreshToken(email: String): String =
-        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, tokenTimeProperties.refreshTime)
+    fun generateRefreshToken(id: String): String =
+        generateToken(id, REFRESH_TYPE, jwtProperties.refreshSecret, tokenTimeProperties.refreshTime)
 
     fun resolveToken(req: HttpServletRequest): String? {
         val token = req.getHeader("Authorization") ?: return null

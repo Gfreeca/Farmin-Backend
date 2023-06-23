@@ -5,4 +5,5 @@ import team.kimfarmer.farmin.domain.user.domain.entity.User
 
 interface UserRepository : CrudRepository<User, Long> {
     fun findById(id: String): User?
+    fun existsById(id: String): Boolean
 }

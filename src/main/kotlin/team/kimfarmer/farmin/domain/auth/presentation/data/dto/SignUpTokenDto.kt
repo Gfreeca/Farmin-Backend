@@ -1,6 +1,5 @@
 package team.kimfarmer.farmin.domain.auth.presentation.data.dto
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.ZonedDateTime
 
 data class SignUpTokenDto(

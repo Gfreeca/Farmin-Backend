@@ -3,6 +3,7 @@ package team.kimfarmer.farmin.global.security.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -30,8 +31,10 @@ class SecurityConfig(
                 .sessionManagement{it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)}
 
                 .authorizeHttpRequests{
-                    it.requestMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**")
-                    it.anyRequest().permitAll()
+                    it.requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                    it.requestMatchers(HttpMethod.POST, "/sign-up").permitAll()
+                    it.requestMatchers(HttpMethod.POST, "/sign-in").permitAll()
+                    it.anyRequest().denyAll()
                 }
                 .exceptionHandling{
                     it.authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))

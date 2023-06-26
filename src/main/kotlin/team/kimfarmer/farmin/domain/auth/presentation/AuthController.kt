@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import team.kimfarmer.farmin.domain.auth.presentation.data.request.SignInRequestDto
 import team.kimfarmer.farmin.domain.auth.presentation.data.request.SignUpRequestDto
+import team.kimfarmer.farmin.domain.auth.presentation.data.response.SignInResponseDto
 import team.kimfarmer.farmin.domain.auth.presentation.data.response.SignUpResponseDto
+import team.kimfarmer.farmin.domain.auth.service.SignInService
 import team.kimfarmer.farmin.domain.auth.service.SignUpService
 import team.kimfarmer.farmin.domain.auth.util.AuthConverter
 
@@ -22,10 +25,11 @@ import team.kimfarmer.farmin.domain.auth.util.AuthConverter
 @RequestMapping("/auth")
 class AuthController(
         private val signUpService: SignUpService,
+        private val signInService: SignInService,
         private val authConverter: AuthConverter
 ) {
     @PostMapping("sign-up")
-    @Operation(summary = "회원 가입", description = "유저 회원가입을 시킴")
+    @Operation(summary = "회원 가입", description = "유저 회원가입")
     @ApiResponses(
             value = [
                 ApiResponse(
@@ -47,4 +51,28 @@ class AuthController(
                     .let { signUpService.execute(it) }
                     .let { authConverter.toResponse(it) }
                     .let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
+
+    @PostMapping("/sign-in")
+    @Operation(summary = "로그인", description = "유저 로그인")
+    @ApiResponses(
+            value = [
+                ApiResponse(
+                        responseCode = "200", description = "로그인 성공",
+                        content = [Content(schema = Schema(implementation = SignUpResponseDto::class))]
+                ),
+                ApiResponse(
+                        responseCode = "400", description = "요청값이 올바르지 않을 경우",
+                        content = [Content(schema = Schema(implementation = String::class))]
+                ),
+                ApiResponse(
+                        responseCode = "404", description = "존재하지 않는 유저",
+                        content = [Content(schema = Schema(implementation = String::class))]
+                )
+            ]
+    )
+    fun signIn(@RequestBody request: SignInRequestDto): ResponseEntity<SignInResponseDto> =
+            authConverter.toDto(request)
+                    .let { signInService.execute(it) }
+                    .let { authConverter.toResponse(it) }
+                    .let { ResponseEntity.status(HttpStatus.OK).body(it) }
 }

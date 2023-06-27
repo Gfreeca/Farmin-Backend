@@ -34,6 +34,10 @@ class ApplicationController(
                         content = [Content(schema = Schema(implementation = String::class))]
                 ),
                 ApiResponse(
+                        responseCode = "401", description = "권한이 없는 경우",
+                        content = [Content(schema = Schema(implementation = String::class))]
+                ),
+                ApiResponse(
                         responseCode = "404", description = "존재하지 않는 유저",
                         content = [Content(schema = Schema(implementation = String::class))]
                 ),

@@ -35,7 +35,9 @@ class SecurityConfig(
                     it.requestMatchers(HttpMethod.POST, "/sign-up").permitAll()
                     it.requestMatchers(HttpMethod.POST, "/sign-in").permitAll()
 
-                    it.requestMatchers(HttpMethod.POST, "/application/{announcement_id}")
+                    it.requestMatchers(HttpMethod.GET, "/announcement").authenticated()
+
+                    it.requestMatchers(HttpMethod.POST, "/application/{announcement_id}").authenticated()
                     it.anyRequest().denyAll()
                 }
                 .exceptionHandling{

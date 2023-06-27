@@ -12,9 +12,6 @@ class Announcement(
         val name: String,
 
         @Column(nullable = false)
-        val location: String,
-
-        @Column(nullable = false)
         val description: String,
 
         @Column(nullable = false)
@@ -22,6 +19,12 @@ class Announcement(
 
         @Column(nullable = false)
         val deadline: String,
+
+        @Column(nullable = false)
+        val thumbnail: String,
+
+        @Column(nullable = false)
+        val farmIdx: Long,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @OnDelete(action = OnDeleteAction.CASCADE)

@@ -23,6 +23,9 @@ class Announcement(
         @Column(nullable = false)
         val deadline: String,
 
+        @Column(nullable = false)
+        val thumbnail: String,
+
         @ManyToOne(fetch = FetchType.LAZY)
         @OnDelete(action = OnDeleteAction.CASCADE)
         @JoinColumn(nullable = false, name = "user_idx")

@@ -34,6 +34,8 @@ class SecurityConfig(
                     it.requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                     it.requestMatchers(HttpMethod.POST, "/sign-up").permitAll()
                     it.requestMatchers(HttpMethod.POST, "/sign-in").permitAll()
+
+                    it.requestMatchers(HttpMethod.POST, "/application/{announcement_id}")
                     it.anyRequest().denyAll()
                 }
                 .exceptionHandling{

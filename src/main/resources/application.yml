@@ -1,0 +1,27 @@
+spring:
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    database-platform: ${DB_PLATFORM}
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO}
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+     redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+jwt:
+  accessSecret: ${JWT_ACCESS_SECRET}
+  refreshSecret: ${JWT_REFRESH_SECRET}
+  time:
+    accessTime: ${JWT_ACCESS_TIME}
+    refreshTime: ${JWT_REFRESH_TIME}

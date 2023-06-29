@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import team.kimfarmer.farmin.domain.announcement.presentation.data.response.AnnouncementResponseDto
 import team.kimfarmer.farmin.domain.announcement.presentation.data.response.DetailAnnouncementResponseDto
+import team.kimfarmer.farmin.domain.announcement.service.FindAnnouncementByIdService
 import team.kimfarmer.farmin.domain.announcement.service.FindAnnouncementsService
 import team.kimfarmer.farmin.domain.announcement.utils.AnnouncementConverter
 import team.kimfarmer.farmin.domain.auth.presentation.data.response.SignUpResponseDto
@@ -23,6 +24,7 @@ import team.kimfarmer.farmin.domain.auth.presentation.data.response.SignUpRespon
 @RequestMapping("/announcement")
 class AnnouncementController(
         private val findAnnouncementsService: FindAnnouncementsService,
+        private val findAnnouncementByIdService: FindAnnouncementByIdService,
         private val announcementConverter: AnnouncementConverter
 ) {
     @GetMapping
@@ -49,7 +51,11 @@ class AnnouncementController(
                     .map { announcementConverter.toResponse(it) }
                     .let { ResponseEntity.status(HttpStatus.OK).body(it) }
     @GetMapping("/{announcement_id}")
-    fun findAnnouncementById(@PathVariable("announcement_id") announcementId: String): ResponseEntity<DetailAnnouncementResponseDto> {
-        return TODO("서비스 구현하고 로직 수정하기")
+    fun findAnnouncementById(@PathVariable("announcement_id") announcementId: Long): ResponseEntity<DetailAnnouncementResponseDto> {
+        val detailAnnouncementDto = findAnnouncementByIdService.execute(announcementId = announcementId)
+        val workingHoursResponse = detailAnnouncementDto.workingHours.map { announcementConverter.toResponse(it) }
+        val response = announcementConverter.toResponse(detailAnnouncementDto, workingHoursResponse)
+
+        return ResponseEntity.status(HttpStatus.OK).body(response)
     }
 }

@@ -14,4 +14,5 @@ interface AnnouncementConverter {
     fun toDto(announcement: Announcement, periodList: List<String>, farm: Farm, applied: Boolean, mainBusinessList: List<String>, benefitList: List<String>, image: List<String>, workingHours: List<DetailAnnouncementDto.WorkingHoursDto>): DetailAnnouncementDto
     fun toResponse(dto: AnnouncementDto): AnnouncementResponseDto
     fun toResponse(dto: DetailAnnouncementDto, workingHours: List<DetailAnnouncementResponseDto.WorkingHoursResponseDto>): DetailAnnouncementResponseDto
+    fun toResponse(dto: DetailAnnouncementDto.WorkingHoursDto): DetailAnnouncementResponseDto.WorkingHoursResponseDto
 }

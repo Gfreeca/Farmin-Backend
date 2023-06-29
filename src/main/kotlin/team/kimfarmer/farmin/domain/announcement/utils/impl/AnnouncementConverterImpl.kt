@@ -76,4 +76,10 @@ class AnnouncementConverterImpl : AnnouncementConverter {
                     workingHours = workingHours
 
             )
+
+    override fun toResponse(dto: DetailAnnouncementDto.WorkingHoursDto): DetailAnnouncementResponseDto.WorkingHoursResponseDto =
+            DetailAnnouncementResponseDto.WorkingHoursResponseDto(
+                    hour = dto.hour,
+                    minute = dto.minute
+            )
 }

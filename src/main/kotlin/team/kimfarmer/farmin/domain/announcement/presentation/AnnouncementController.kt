@@ -50,7 +50,30 @@ class AnnouncementController(
             findAnnouncementsService.execute()
                     .map { announcementConverter.toResponse(it) }
                     .let { ResponseEntity.status(HttpStatus.OK).body(it) }
+
     @GetMapping("/{announcement_id}")
+    @Operation(summary = "지원하기", description = "인력공고에 지원 신청하기")
+    @ApiResponses(
+            value = [
+                ApiResponse(
+                        responseCode = "200", description = "농촌 공고 상세페이지 불러오기 성공",
+                        content = [Content(schema = Schema(implementation = DetailAnnouncementResponseDto::class))]
+                ),
+                ApiResponse(
+                        responseCode = "401", description = "권한이 없는 경우",
+                        content = [Content(schema = Schema(implementation = String::class))]
+                ),
+                ApiResponse(
+                        responseCode = "404", description = "존재하지 않는 공고",
+                        content = [Content(schema = Schema(implementation = String::class))]
+                ),
+                ApiResponse(
+                        responseCode = "404", description = "존재하지 않는 농장",
+                        content = [Content(schema = Schema(implementation = String::class))]
+                )
+
+            ]
+    )
     fun findAnnouncementById(@PathVariable("announcement_id") announcementId: Long): ResponseEntity<DetailAnnouncementResponseDto> {
         val detailAnnouncementDto = findAnnouncementByIdService.execute(announcementId = announcementId)
         val workingHoursResponse = detailAnnouncementDto.workingHours.map { announcementConverter.toResponse(it) }

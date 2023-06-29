@@ -29,5 +29,25 @@ class Announcement(
         @ManyToOne(fetch = FetchType.LAZY)
         @OnDelete(action = OnDeleteAction.CASCADE)
         @JoinColumn(nullable = false, name = "user_idx")
-        val userIdx: User
+        val userIdx: User,
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "Benefit")
+        @JoinColumn(nullable = false, name = "benefit")
+        val benefit: List<Benefit>,
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "Image")
+        @JoinColumn(nullable = false, name = "image")
+        val image: List<Image>,
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "MainBusiness")
+        @JoinColumn(nullable = false, name = "main_business")
+        val mainBusiness: List<MainBusiness>,
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "Period")
+        @JoinColumn(nullable = false, name = "period")
+        val period: List<Period>,
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "WorkingHours")
+        @JoinColumn(nullable = false, name = "working_hours")
+        val workingHours: List<WorkingHours>
 ) : BaseIdEntity()

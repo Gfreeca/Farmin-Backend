@@ -23,5 +23,8 @@ class User(
         val location: String,
 
         @Column(nullable = false)
-        val description: String
+        val description: String,
+
+        @Column(nullable = false)
+        val profileImg: String
 ) : BaseIdEntity()

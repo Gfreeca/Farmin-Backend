@@ -32,13 +32,14 @@ class SecurityConfig(
 
                 .authorizeHttpRequests{
                     it.requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                    it.requestMatchers(HttpMethod.POST, "/sign-up").permitAll()
-                    it.requestMatchers(HttpMethod.POST, "/sign-in").permitAll()
+                    it.requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()
+                    it.requestMatchers(HttpMethod.POST, "/auth/sign-in").permitAll()
 
                     it.requestMatchers(HttpMethod.GET, "/announcement").authenticated()
+                    it.requestMatchers(HttpMethod.GET, "/announcement/{announcement_id}").authenticated()
 
                     it.requestMatchers(HttpMethod.POST, "/application/{announcement_id}").authenticated()
-                    it.anyRequest().permitAll()
+                    it.anyRequest().denyAll()
                 }
                 .exceptionHandling{
                     it.authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))

@@ -33,21 +33,21 @@ class Announcement(
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "Benefit")
         @JoinColumn(nullable = false, name = "benefit")
-        val benefit: Benefit,
+        val benefit: List<Benefit>,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "Image")
         @JoinColumn(nullable = false, name = "image")
-        val image: Image,
+        val image: List<Image>,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "MainBusiness")
         @JoinColumn(nullable = false, name = "main_business")
-        val mainBusiness: MainBusiness,
+        val mainBusiness: List<MainBusiness>,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "Period")
         @JoinColumn(nullable = false, name = "period")
-        val period: Period,
+        val period: List<Period>,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "WorkingHours")
         @JoinColumn(nullable = false, name = "working_hours")
-        val workingHours: WorkingHours
+        val workingHours: List<WorkingHours>
 ) : BaseIdEntity()

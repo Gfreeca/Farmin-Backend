@@ -2,6 +2,7 @@ package team.kimfarmer.farmin.domain.announcement.utils.impl
 
 import org.springframework.stereotype.Component
 import team.kimfarmer.farmin.domain.announcement.domain.entity.Announcement
+import team.kimfarmer.farmin.domain.announcement.domain.entity.WorkingHours
 import team.kimfarmer.farmin.domain.announcement.presentation.data.dto.AnnouncementDto
 import team.kimfarmer.farmin.domain.announcement.presentation.data.dto.DetailAnnouncementDto
 import team.kimfarmer.farmin.domain.announcement.presentation.data.response.AnnouncementResponseDto
@@ -20,6 +21,12 @@ class AnnouncementConverterImpl : AnnouncementConverter {
                     pay = announcement.pay,
                     location = farm.location,
                     farmName = farm.name
+            )
+
+    override fun toDto(workingHours: WorkingHours): DetailAnnouncementDto.WorkingHoursDto =
+            DetailAnnouncementDto.WorkingHoursDto(
+                    hour = workingHours.hour,
+                    minute = workingHours.minute
             )
 
     override fun toResponse(dto: AnnouncementDto): AnnouncementResponseDto =

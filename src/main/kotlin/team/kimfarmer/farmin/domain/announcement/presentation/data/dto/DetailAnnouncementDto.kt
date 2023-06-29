@@ -8,14 +8,14 @@ data class DetailAnnouncementDto (
         val userProfile: String,
         val description: String,
         val pay: String,
+        val deadline: String,
+        val location: String,
+        val isApplied: Boolean,
         val mainBusiness: List<String>,
         val images: List<String>,
         val workingHours: List<WorkingHoursDto>,
         val period: List<String>,
-        val benefit: List<String>,
-        val deadline: String,
-        val location: String,
-        val isApplied: Boolean
+        val benefit: List<String>
 ) {
     data class WorkingHoursDto(
             val hour: String,

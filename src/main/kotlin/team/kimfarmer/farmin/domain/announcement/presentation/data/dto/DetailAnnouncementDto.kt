@@ -5,7 +5,7 @@ data class DetailAnnouncementDto (
         val name: String,
         val farmName: String,
         val userName: String,
-        val profile: String,
+        val userProfile: String,
         val description: String,
         val pay: String,
         val mainBusiness: List<String>,

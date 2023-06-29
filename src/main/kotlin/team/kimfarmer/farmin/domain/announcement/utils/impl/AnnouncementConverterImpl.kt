@@ -11,6 +11,7 @@ import team.kimfarmer.farmin.domain.farm.domain.entity.Farm
 class AnnouncementConverterImpl : AnnouncementConverter {
     override fun toDto(announcement: Announcement, farm: Farm): AnnouncementDto =
             AnnouncementDto(
+                    idx = announcement.idx,
                     thumbnail = announcement.thumbnail,
                     name = announcement.name,
                     pay = announcement.pay,
@@ -20,6 +21,7 @@ class AnnouncementConverterImpl : AnnouncementConverter {
 
     override fun toResponse(dto: AnnouncementDto): AnnouncementResponseDto =
             AnnouncementResponseDto(
+                    idx = dto.idx,
                     thumbnail = dto.thumbnail,
                     name = dto.name,
                     location = dto.location,

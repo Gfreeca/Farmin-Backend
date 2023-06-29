@@ -52,7 +52,7 @@ class AnnouncementController(
                     .let { ResponseEntity.status(HttpStatus.OK).body(it) }
 
     @GetMapping("/{announcement_id}")
-    @Operation(summary = "지원하기", description = "인력공고에 지원 신청하기")
+    @Operation(summary = "공고 상세페이지 보기", description = "")
     @ApiResponses(
             value = [
                 ApiResponse(
@@ -76,7 +76,8 @@ class AnnouncementController(
     )
     fun findAnnouncementById(@PathVariable("announcement_id") announcementId: Long): ResponseEntity<DetailAnnouncementResponseDto> {
         val detailAnnouncementDto = findAnnouncementByIdService.execute(announcementId = announcementId)
-        val workingHoursResponse = detailAnnouncementDto.workingHours.map { announcementConverter.toResponse(it) }
+        val workingHoursResponse = detailAnnouncementDto.workingHours
+                .map { announcementConverter.toResponse(it) }
         val response = announcementConverter.toResponse(detailAnnouncementDto, workingHoursResponse)
 
         return ResponseEntity.status(HttpStatus.OK).body(response)

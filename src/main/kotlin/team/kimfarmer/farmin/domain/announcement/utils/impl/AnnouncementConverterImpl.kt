@@ -9,7 +9,6 @@ import team.kimfarmer.farmin.domain.announcement.presentation.data.response.Anno
 import team.kimfarmer.farmin.domain.announcement.presentation.data.response.DetailAnnouncementResponseDto
 import team.kimfarmer.farmin.domain.announcement.utils.AnnouncementConverter
 import team.kimfarmer.farmin.domain.farm.domain.entity.Farm
-import team.kimfarmer.farmin.main
 
 @Component
 class AnnouncementConverterImpl : AnnouncementConverter {
@@ -27,6 +26,25 @@ class AnnouncementConverterImpl : AnnouncementConverter {
             DetailAnnouncementDto.WorkingHoursDto(
                     hour = workingHours.hour,
                     minute = workingHours.minute
+            )
+
+    override fun toDto(announcement: Announcement, periodList: List<String>, farm: Farm, applied: Boolean, mainBusinessList: List<String>, benefitList: List<String>, image: List<String>, workingHours: List<DetailAnnouncementDto.WorkingHoursDto>): DetailAnnouncementDto =
+            DetailAnnouncementDto(
+                    idx = announcement.idx,
+                    name = announcement.name,
+                    farmName = farm.name,
+                    location = farm.location,
+                    userName = announcement.userIdx.name,
+                    userProfile = announcement.userIdx.profileImg,
+                    description = announcement.description,
+                    pay = announcement.pay,
+                    deadline = announcement.deadline,
+                    isApplied = applied,
+                    mainBusiness = mainBusinessList,
+                    images = image,
+                    workingHours = workingHours,
+                    period = periodList,
+                    benefit = benefitList
             )
 
     override fun toResponse(dto: AnnouncementDto): AnnouncementResponseDto =

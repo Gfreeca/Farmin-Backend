@@ -39,7 +39,7 @@ class SecurityConfig(
                     it.requestMatchers(HttpMethod.GET, "/announcement/{announcement_id}").authenticated()
 
                     it.requestMatchers(HttpMethod.POST, "/application/{announcement_id}").authenticated()
-                    it.anyRequest().permitAll()
+                    it.anyRequest().denyAll()
                 }
                 .exceptionHandling{
                     it.authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))

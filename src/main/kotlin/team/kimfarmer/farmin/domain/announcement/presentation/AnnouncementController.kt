@@ -28,12 +28,12 @@ class AnnouncementController(
         private val announcementConverter: AnnouncementConverter
 ) {
     @GetMapping
-    @Operation(summary = "지원하기", description = "인력공고에 지원 신청하기")
+    @Operation(summary = "인력 공고리스트 불러오기", description = "인력공고에 리스트 불러오기")
     @ApiResponses(
             value = [
                 ApiResponse(
                         responseCode = "200", description = "농촌 공고리스트 불러오기 성공",
-                        content = [Content(schema = Schema(implementation = SignUpResponseDto::class))]
+                        content = [Content(schema = Schema(implementation = AnnouncementResponseDto::class))]
                 ),
                 ApiResponse(
                         responseCode = "401", description = "권한이 없는 경우",

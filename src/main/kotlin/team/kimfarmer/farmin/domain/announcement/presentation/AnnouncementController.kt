@@ -1,6 +1,7 @@
 package team.kimfarmer.farmin.domain.announcement.presentation
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -33,7 +34,7 @@ class AnnouncementController(
             value = [
                 ApiResponse(
                         responseCode = "200", description = "농촌 공고리스트 불러오기 성공",
-                        content = [Content(schema = Schema(implementation = AnnouncementResponseDto::class))]
+                        content = [Content(array = ArraySchema(schema = Schema(implementation = AnnouncementResponseDto::class)))]
                 ),
                 ApiResponse(
                         responseCode = "401", description = "권한이 없는 경우",

@@ -61,6 +61,7 @@ class AuthConverterImpl : AuthConverter {
                     name = dto.name,
                     phoneNumber = dto.phoneNumber,
                     location = dto.location,
-                    description = dto.description
+                    description = dto.description,
+                    profileImg = ""
             )
 }

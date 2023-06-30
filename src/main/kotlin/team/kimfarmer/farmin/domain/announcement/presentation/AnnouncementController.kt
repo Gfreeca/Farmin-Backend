@@ -1,6 +1,7 @@
 package team.kimfarmer.farmin.domain.announcement.presentation
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -28,12 +29,12 @@ class AnnouncementController(
         private val announcementConverter: AnnouncementConverter
 ) {
     @GetMapping
-    @Operation(summary = "지원하기", description = "인력공고에 지원 신청하기")
+    @Operation(summary = "인력 공고리스트 불러오기", description = "인력공고에 리스트 불러오기")
     @ApiResponses(
             value = [
                 ApiResponse(
                         responseCode = "200", description = "농촌 공고리스트 불러오기 성공",
-                        content = [Content(schema = Schema(implementation = SignUpResponseDto::class))]
+                        content = [Content(array = ArraySchema(schema = Schema(implementation = AnnouncementResponseDto::class)))]
                 ),
                 ApiResponse(
                         responseCode = "401", description = "권한이 없는 경우",

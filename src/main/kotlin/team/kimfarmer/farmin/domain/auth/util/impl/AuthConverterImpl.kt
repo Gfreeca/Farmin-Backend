@@ -42,7 +42,7 @@ class AuthConverterImpl : AuthConverter {
 
     override fun toResponse(dto: SignInTokenDto): SignInResponseDto =
             SignInResponseDto(
-                    accessToken = dto.refreshToken,
+                    accessToken = dto.accessToken,
                     refreshToken = dto.refreshToken,
                     accessExp = dto.accessExp,
                     refreshExp = dto.refreshExp

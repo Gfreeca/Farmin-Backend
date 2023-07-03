@@ -11,13 +11,13 @@ import team.kimfarmer.farmin.domain.user.utils.UserUtils
 @Service
 @Transactional
 class CreateAnnouncementServiceImpl(
-        val announcementRepository: AnnouncementRepository,
-        val benefitRepository: BenefitRepository,
-        val imageRepository: ImageRepository,
-        val mainBusinessRepository: MainBusinessRepository,
-        val periodRepository: PeriodRepository,
-        val workingHoursRepository: WorkingHoursRepository,
-        val userUtils: UserUtils
+        private val announcementRepository: AnnouncementRepository,
+        private val benefitRepository: BenefitRepository,
+        private val imageRepository: ImageRepository,
+        private val mainBusinessRepository: MainBusinessRepository,
+        private val periodRepository: PeriodRepository,
+        private val workingHoursRepository: WorkingHoursRepository,
+        private val userUtils: UserUtils
 ) : CreateAnnouncementService {
     override fun execute(request: CreateAnnouncementRequestDto) {
         val user = userUtils.getCurrentUser()

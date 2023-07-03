@@ -31,9 +31,18 @@ class FindAnnouncementByIdServiceImpl(
         val announcement = announcementRepository.findByIdOrNull(announcementId)
                 ?: throw AnnouncementNotFoundException()
         val farm = farmUtils.findByFarmIdx(announcement.farmIdx)
-        val
+        val benefits = benefitRepository.findBenefitsByAnnouncementIdx(announcement)
+                .map { it.content }
+        val images = imageRepository.findImagesByAnnouncementIdx(announcement)
+                .map { it.img }
+        val mainBusinesses = mainBusinessRepository.findMainBusinessesByAnnouncementIdx(announcement)
+                .map { it.content }
+        val periods = periodRepository.findPeriodsByAnnouncementIdx(announcement)
+                .map { it.date }
+        val workingHours = workingHoursRepository.findWorkingHoursByAnnouncementIdx(announcement)
+                .map { announcementConverter.toDto(it) }
         val isApplied = applicationRepository.existsByUserIdx(user)
 
-        return announcementConverter.toDto(announcement, periodList, farm, isApplied, mainBusinessList, benefitList, image, workingHours)
+        return announcementConverter.toDto(announcement, periods, farm, isApplied, mainBusinesses, benefits, images, workingHours)
     }
 }

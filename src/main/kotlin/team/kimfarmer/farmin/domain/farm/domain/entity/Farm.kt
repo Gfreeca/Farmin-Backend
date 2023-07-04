@@ -20,9 +20,6 @@ class Farm(
         @Column(nullable = false)
         val location: String,
 
-        @Column(nullable = false, name = "profile_img")
-        val profileImg: String,
-
         @ManyToOne(fetch = FetchType.LAZY)
         @OnDelete(action = OnDeleteAction.CASCADE)
         @JoinColumn(nullable = false, name = "user_idx")

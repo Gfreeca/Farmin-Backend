@@ -15,6 +15,6 @@ class WorkingHours(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @OnDelete(action = OnDeleteAction.CASCADE)
-        @JoinColumn(nullable = false)
+        @JoinColumn(nullable = false, name = "announcement_idx")
         val announcementIdx: Announcement
 ) : BaseIdEntity()

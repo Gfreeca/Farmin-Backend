@@ -6,7 +6,6 @@ data class CreateAnnouncementRequestDto (
         val description: String,
         val pay: String,
         val deadline: String,
-        val thumbnail: String,
         val farmIdx: Long   ,
         val benefit: List<String>,
         val image: List<String>,

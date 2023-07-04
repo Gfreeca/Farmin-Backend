@@ -25,7 +25,6 @@ class CreateAnnouncementServiceImpl(
                 name = request.name,
                 description = request.description,
                 pay = request.pay,
-                thumbnail = request.thumbnail,
                 deadline = request.deadline,
                 farmIdx = request.farmIdx,
                 userIdx = user

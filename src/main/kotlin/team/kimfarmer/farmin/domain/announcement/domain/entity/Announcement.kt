@@ -21,9 +21,6 @@ class Announcement(
         val deadline: String,
 
         @Column(nullable = false)
-        val thumbnail: String,
-
-        @Column(nullable = false)
         val farmIdx: Long,
 
         @ManyToOne(fetch = FetchType.LAZY)

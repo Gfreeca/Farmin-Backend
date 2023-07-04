@@ -9,7 +9,7 @@ import team.kimfarmer.farmin.domain.announcement.presentation.data.response.Deta
 import team.kimfarmer.farmin.domain.farm.domain.entity.Farm
 
 interface AnnouncementConverter {
-    fun toDto(announcement: Announcement, farm: Farm): AnnouncementDto
+    fun toDto(announcement: Announcement, image: String ,farm: Farm): AnnouncementDto
     fun toDto(workingHours: WorkingHours): DetailAnnouncementDto.WorkingHoursDto
     fun toDto(announcement: Announcement, periodList: List<String>, farm: Farm, applied: Boolean, mainBusinessList: List<String>, benefitList: List<String>, image: List<String>, workingHours: List<DetailAnnouncementDto.WorkingHoursDto>): DetailAnnouncementDto
     fun toResponse(dto: AnnouncementDto): AnnouncementResponseDto

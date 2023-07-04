@@ -12,10 +12,10 @@ import team.kimfarmer.farmin.domain.farm.domain.entity.Farm
 
 @Component
 class AnnouncementConverterImpl : AnnouncementConverter {
-    override fun toDto(announcement: Announcement, farm: Farm): AnnouncementDto =
+    override fun toDto(announcement: Announcement, image: String ,farm: Farm): AnnouncementDto =
             AnnouncementDto(
                     idx = announcement.idx,
-                    thumbnail = announcement.thumbnail,
+                    thumbnail = image,
                     name = announcement.name,
                     pay = announcement.pay,
                     location = farm.location,

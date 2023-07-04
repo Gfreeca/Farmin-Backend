@@ -11,21 +11,25 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import team.kimfarmer.farmin.domain.announcement.presentation.data.request.CreateAnnouncementRequestDto
 import team.kimfarmer.farmin.domain.announcement.presentation.data.response.AnnouncementResponseDto
 import team.kimfarmer.farmin.domain.announcement.presentation.data.response.DetailAnnouncementResponseDto
+import team.kimfarmer.farmin.domain.announcement.service.CreateAnnouncementService
 import team.kimfarmer.farmin.domain.announcement.service.FindAnnouncementByIdService
 import team.kimfarmer.farmin.domain.announcement.service.FindAnnouncementsService
 import team.kimfarmer.farmin.domain.announcement.utils.AnnouncementConverter
-import team.kimfarmer.farmin.domain.auth.presentation.data.response.SignUpResponseDto
 
 @RestController
 @Tag(name = "announcement", description = "공고 API")
 @RequestMapping("/announcement")
 class AnnouncementController(
-        private val findAnnouncementsService: FindAnnouncementsService,
+        private val findAnnouncementService: FindAnnouncementsService,
         private val findAnnouncementByIdService: FindAnnouncementByIdService,
+        private val createAnnouncementService: CreateAnnouncementService,
         private val announcementConverter: AnnouncementConverter
 ) {
     @GetMapping
@@ -48,7 +52,7 @@ class AnnouncementController(
             ]
     )
     fun findAnnouncements(): ResponseEntity<List<AnnouncementResponseDto>> =
-            findAnnouncementsService.execute()
+            findAnnouncementService.execute()
                     .map { announcementConverter.toResponse(it) }
                     .let { ResponseEntity.status(HttpStatus.OK).body(it) }
 
@@ -83,4 +87,9 @@ class AnnouncementController(
 
         return ResponseEntity.status(HttpStatus.OK).body(response)
     }
+    @PostMapping
+    fun createAnnouncement(@RequestBody request: CreateAnnouncementRequestDto): ResponseEntity<Void> =
+        createAnnouncementService.execute(request)
+                .run { ResponseEntity.status(HttpStatus.CREATED).build() }
+
 }

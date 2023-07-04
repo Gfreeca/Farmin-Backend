@@ -37,6 +37,7 @@ class SecurityConfig(
 
                     it.requestMatchers(HttpMethod.GET, "/announcement").authenticated()
                     it.requestMatchers(HttpMethod.GET, "/announcement/{announcement_id}").authenticated()
+                    it.requestMatchers(HttpMethod.POST, "/announcement").authenticated()
 
                     it.requestMatchers(HttpMethod.POST, "/application/{announcement_id}").authenticated()
                     it.anyRequest().denyAll()
